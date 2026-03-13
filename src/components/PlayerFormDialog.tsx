@@ -85,9 +85,17 @@ const PlayerFormDialog = ({
                   <span className="text-sm font-medium">
                     {statLabels[key]}
                   </span>
-                  <span className="font-display text-lg font-bold">
-                    {stats[key]}
-                  </span>
+                  <Input
+                    type="number"
+                    min={1}
+                    max={99}
+                    value={stats[key]}
+                    onChange={(e) => {
+                      const v = Math.min(99, Math.max(1, Number(e.target.value) || 1));
+                      setStats((prev) => ({ ...prev, [key]: v }));
+                    }}
+                    className="w-16 h-8 text-center font-display font-bold text-base"
+                  />
                 </div>
                 <Slider
                   value={[stats[key]]}
