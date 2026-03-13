@@ -80,8 +80,8 @@ const TeamColumn = ({
             <div
               className={`flex h-7 w-7 items-center justify-center rounded-full text-[10px] font-display font-semibold ${
                 variant === "a"
-                  ? "bg-team-a/10 text-team-a"
-                  : "bg-team-b/10 text-team-b"
+                  ? "bg-azerbaijan/10 text-azerbaijan"
+                  : "bg-germany/10 text-germany"
               }`}
             >
               {player.name.split(" ").map((w) => w[0]).join("").toUpperCase().slice(0, 2)}

@@ -51,13 +51,16 @@ export default {
           DEFAULT: "hsl(var(--card))",
           foreground: "hsl(var(--card-foreground))",
         },
-        "team-a": {
-          DEFAULT: "hsl(var(--team-a))",
-          foreground: "hsl(var(--team-a-foreground))",
+        azerbaijan: {
+          DEFAULT: "hsl(var(--azerbaijan))",
+          foreground: "hsl(var(--azerbaijan-foreground))",
+          green: "hsl(var(--azerbaijan-green))",
         },
-        "team-b": {
-          DEFAULT: "hsl(var(--team-b))",
-          foreground: "hsl(var(--team-b-foreground))",
+        germany: {
+          DEFAULT: "hsl(var(--germany))",
+          foreground: "hsl(var(--germany-foreground))",
+          red: "hsl(var(--germany-red))",
+          gold: "hsl(var(--germany-gold))",
         },
         "stat-bar": "hsl(var(--stat-bar))",
         sidebar: {
