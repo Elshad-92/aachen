@@ -52,15 +52,14 @@ export default {
           foreground: "hsl(var(--card-foreground))",
         },
         azerbaijan: {
-          DEFAULT: "hsl(var(--azerbaijan))",
-          foreground: "hsl(var(--azerbaijan-foreground))",
-          green: "hsl(var(--azerbaijan-green))",
+          blue: "hsl(214 91% 39%)",
+          red: "hsl(357 82% 51%)",
+          green: "hsl(151 67% 45%)",
         },
         germany: {
-          DEFAULT: "hsl(var(--germany))",
-          foreground: "hsl(var(--germany-foreground))",
-          red: "hsl(var(--germany-red))",
-          gold: "hsl(var(--germany-gold))",
+          black: "hsl(0 0% 0%)",
+          red: "hsl(0 72% 51%)",
+          gold: "hsl(48 100% 50%)",
         },
         "stat-bar": "hsl(var(--stat-bar))",
         sidebar: {
