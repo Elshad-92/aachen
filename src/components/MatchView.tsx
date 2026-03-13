@@ -32,8 +32,8 @@ const TeamColumn = ({
       <div
         className={`rounded-lg p-3 text-center ${
           variant === "a"
-            ? "bg-azerbaijan text-azerbaijan-foreground"
-            : "bg-germany text-germany-foreground"
+            ? "bg-gradient-to-r from-[hsl(214,91%,39%)] via-[hsl(357,82%,51%)] to-[hsl(151,67%,45%)] text-white"
+            : "bg-gradient-to-r from-[hsl(0,0%,0%)] via-[hsl(0,72%,51%)] to-[hsl(48,100%,50%)] text-white"
         }`}
       >
         <p className="font-display text-sm font-semibold uppercase tracking-wider">
