@@ -32,12 +32,12 @@ const TeamColumn = ({
       <div
         className={`rounded-lg p-3 text-center ${
           variant === "a"
-            ? "bg-team-a text-team-a-foreground"
-            : "bg-team-b text-team-b-foreground"
+            ? "bg-azerbaijan text-azerbaijan-foreground"
+            : "bg-germany text-germany-foreground"
         }`}
       >
         <p className="font-display text-sm font-semibold uppercase tracking-wider">
-          {label}
+          {variant === "a" ? "Aserbaidschan" : "Deutschland"}
         </p>
         <p className="font-display text-3xl font-bold">{teamOverall}</p>
         <p className="text-xs opacity-80">AVG OVR</p>
