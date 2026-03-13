@@ -56,7 +56,9 @@ const TeamColumn = ({
                 animate={{ width: `${avg[key]}%` }}
                 transition={{ duration: 0.6, delay: 0.3 }}
                 className={`h-full rounded-full ${
-                  variant === "a" ? "bg-azerbaijan" : "bg-germany"
+                  variant === "a" 
+                    ? "bg-[hsl(214,91%,39%)]" 
+                    : "bg-[hsl(0,0%,0%)]"
                 }`}
               />
             </div>
