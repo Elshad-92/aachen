@@ -32,12 +32,12 @@ const TeamColumn = ({
       <div
         className={`rounded-lg p-3 text-center ${
           variant === "a"
-            ? "bg-team-a text-team-a-foreground"
-            : "bg-team-b text-team-b-foreground"
+            ? "bg-azerbaijan text-azerbaijan-foreground"
+            : "bg-germany text-germany-foreground"
         }`}
       >
         <p className="font-display text-sm font-semibold uppercase tracking-wider">
-          {label}
+          {variant === "a" ? "Aserbaidschan" : "Deutschland"}
         </p>
         <p className="font-display text-3xl font-bold">{teamOverall}</p>
         <p className="text-xs opacity-80">AVG OVR</p>
@@ -56,7 +56,7 @@ const TeamColumn = ({
                 animate={{ width: `${avg[key]}%` }}
                 transition={{ duration: 0.6, delay: 0.3 }}
                 className={`h-full rounded-full ${
-                  variant === "a" ? "bg-team-a" : "bg-team-b"
+                  variant === "a" ? "bg-azerbaijan" : "bg-germany"
                 }`}
               />
             </div>
@@ -80,8 +80,8 @@ const TeamColumn = ({
             <div
               className={`flex h-7 w-7 items-center justify-center rounded-full text-[10px] font-display font-semibold ${
                 variant === "a"
-                  ? "bg-team-a/10 text-team-a"
-                  : "bg-team-b/10 text-team-b"
+                  ? "bg-azerbaijan/10 text-azerbaijan"
+                  : "bg-germany/10 text-germany"
               }`}
             >
               {player.name.split(" ").map((w) => w[0]).join("").toUpperCase().slice(0, 2)}
@@ -127,8 +127,8 @@ const MatchView = ({ teamA, teamB, onBack }: MatchViewProps) => {
         </motion.div>
 
         <div className="flex gap-3">
-          <TeamColumn team={teamA} label="Team A" variant="a" />
-          <TeamColumn team={teamB} label="Team B" variant="b" />
+          <TeamColumn team={teamA} label="Aserbaidschan" variant="a" />
+          <TeamColumn team={teamB} label="Deutschland" variant="b" />
         </div>
       </div>
     </div>

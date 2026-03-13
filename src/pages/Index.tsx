@@ -99,7 +99,7 @@ const Index = () => {
           <div className="flex items-center justify-between">
             <div>
               <h1 className="font-display text-2xl font-bold uppercase tracking-wide">
-                ⚽ KickOff
+                ⚚ Aachen Ushaqlari
               </h1>
               <p className="text-xs text-muted-foreground">
                 {players.length} Spieler im Kader
