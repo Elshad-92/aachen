@@ -127,8 +127,8 @@ const MatchView = ({ teamA, teamB, onBack }: MatchViewProps) => {
         </motion.div>
 
         <div className="flex gap-3">
-          <TeamColumn team={teamA} label="Team A" variant="a" />
-          <TeamColumn team={teamB} label="Team B" variant="b" />
+          <TeamColumn team={teamA} label="Aserbaidschan" variant="a" />
+          <TeamColumn team={teamB} label="Deutschland" variant="b" />
         </div>
       </div>
     </div>
