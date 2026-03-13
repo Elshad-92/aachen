@@ -32,8 +32,8 @@ const TeamColumn = ({
       <div
         className={`rounded-lg p-3 text-center ${
           variant === "a"
-            ? "bg-azerbaijan text-azerbaijan-foreground"
-            : "bg-germany text-germany-foreground"
+            ? "bg-gradient-to-r from-[hsl(214,91%,39%)] via-[hsl(357,82%,51%)] to-[hsl(151,67%,45%)] text-white"
+            : "bg-gradient-to-r from-[hsl(0,0%,0%)] via-[hsl(0,72%,51%)] to-[hsl(48,100%,50%)] text-white"
         }`}
       >
         <p className="font-display text-sm font-semibold uppercase tracking-wider">
@@ -56,7 +56,9 @@ const TeamColumn = ({
                 animate={{ width: `${avg[key]}%` }}
                 transition={{ duration: 0.6, delay: 0.3 }}
                 className={`h-full rounded-full ${
-                  variant === "a" ? "bg-azerbaijan" : "bg-germany"
+                  variant === "a" 
+                    ? "bg-[hsl(214,91%,39%)]" 
+                    : "bg-[hsl(0,0%,0%)]"
                 }`}
               />
             </div>
@@ -80,8 +82,8 @@ const TeamColumn = ({
             <div
               className={`flex h-7 w-7 items-center justify-center rounded-full text-[10px] font-display font-semibold ${
                 variant === "a"
-                  ? "bg-azerbaijan/10 text-azerbaijan"
-                  : "bg-germany/10 text-germany"
+                  ? "bg-[hsl(214,91%,39%)]/10 text-[hsl(214,91%,39%)]"
+                  : "bg-[hsl(0,0%,0%)]/10 text-[hsl(0,0%,0%)]"
               }`}
             >
               {player.name.split(" ").map((w) => w[0]).join("").toUpperCase().slice(0, 2)}
