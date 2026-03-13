@@ -82,8 +82,8 @@ const TeamColumn = ({
             <div
               className={`flex h-7 w-7 items-center justify-center rounded-full text-[10px] font-display font-semibold ${
                 variant === "a"
-                  ? "bg-azerbaijan/10 text-azerbaijan"
-                  : "bg-germany/10 text-germany"
+                  ? "bg-[hsl(214,91%,39%)]/10 text-[hsl(214,91%,39%)]"
+                  : "bg-[hsl(0,0%,0%)]/10 text-[hsl(0,0%,0%)]"
               }`}
             >
               {player.name.split(" ").map((w) => w[0]).join("").toUpperCase().slice(0, 2)}

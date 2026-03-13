@@ -36,13 +36,15 @@
     --destructive: 0 72% 51%;
     --destructive-foreground: 0 0% 100%;
 
-    --azerbaijan: 214 91% 39%;
-    --azerbaijan-foreground: 0 0% 100%;
+    --azerbaijan-blue: 214 91% 39%;
+    --azerbaijan-red: 357 82% 51%;
     --azerbaijan-green: 151 67% 45%;
-    --germany: 0 0% 0%;
-    --germany-foreground: 0 0% 100%;
+    --azerbaijan-foreground: 0 0% 100%;
+    
+    --germany-black: 0 0% 0%;
     --germany-red: 0 72% 51%;
     --germany-gold: 48 100% 50%;
+    --germany-foreground: 0 0% 100%;
 
     --stat-bar: 160 72% 40%;
 
