@@ -1,6 +1,6 @@
-import { useState, useMemo, useEffect } from "react";
+import { useState, useMemo, useEffect, useCallback } from "react";
 import { Player } from "@/types/player";
-import { loadPlayers, savePlayers } from "@/lib/storage";
+import { loadPlayers, addPlayer, updatePlayer, deletePlayer } from "@/lib/storage";
 import { generateBalancedTeams } from "@/lib/team-generator";
 import PlayerCard from "@/components/PlayerCard";
 import PlayerFormDialog from "@/components/PlayerFormDialog";
@@ -13,7 +13,8 @@ import { Plus, Search, Shuffle, Users, X } from "lucide-react";
 const REQUIRED_PLAYERS = 12;
 
 const Index = () => {
-  const [players, setPlayers] = useState<Player[]>(loadPlayers);
+  const [players, setPlayers] = useState<Player[]>([]);
+  const [loading, setLoading] = useState(true);
   const [search, setSearch] = useState("");
   const [selectionMode, setSelectionMode] = useState(false);
   const [selectedIds, setSelectedIds] = useState<Set<string>>(new Set());
@@ -23,8 +24,11 @@ const Index = () => {
   const [shuffling, setShuffling] = useState(false);
 
   useEffect(() => {
-    savePlayers(players);
-  }, [players]);
+    loadPlayers().then((data) => {
+      setPlayers(data);
+      setLoading(false);
+    });
+  }, []);
 
   const filtered = useMemo(() => {
     if (!search) return players;
@@ -32,27 +36,33 @@ const Index = () => {
     return players.filter((p) => p.name.toLowerCase().includes(q));
   }, [players, search]);
 
-  const handleSave = (data: Omit<Player, "id"> & { id?: string }) => {
+  const handleSave = async (data: Omit<Player, "id"> & { id?: string }) => {
     if (data.id) {
-      setPlayers((prev) =>
-        prev.map((p) => (p.id === data.id ? { ...p, ...data } as Player : p))
-      );
+      const updated: Player = { id: data.id, name: data.name, stats: data.stats };
+      const success = await updatePlayer(updated);
+      if (success) {
+        setPlayers((prev) =>
+          prev.map((p) => (p.id === data.id ? updated : p))
+        );
+      }
     } else {
-      const newPlayer: Player = {
-        ...data,
-        id: crypto.randomUUID(),
-      };
-      setPlayers((prev) => [...prev, newPlayer]);
+      const newPlayer = await addPlayer({ name: data.name, stats: data.stats });
+      if (newPlayer) {
+        setPlayers((prev) => [...prev, newPlayer]);
+      }
     }
   };
 
-  const handleDelete = (id: string) => {
-    setPlayers((prev) => prev.filter((p) => p.id !== id));
-    setSelectedIds((prev) => {
-      const next = new Set(prev);
-      next.delete(id);
-      return next;
-    });
+  const handleDelete = async (id: string) => {
+    const success = await deletePlayer(id);
+    if (success) {
+      setPlayers((prev) => prev.filter((p) => p.id !== id));
+      setSelectedIds((prev) => {
+        const next = new Set(prev);
+        next.delete(id);
+        return next;
+      });
+    }
   };
 
   const toggleSelect = (id: string) => {
@@ -92,7 +102,7 @@ const Index = () => {
   }
 
   return (
-    <div className="min-h-screen bg-background pb-28">
+    <div className="min-h-screen bg-background pb-28"> 
       {/* Header */}
       <div className="sticky top-0 z-10 bg-background/80 backdrop-blur-sm border-b">
         <div className="max-w-lg mx-auto px-4 py-3">
