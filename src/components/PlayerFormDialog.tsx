@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Player, PlayerStats, StatKey, STAT_LABELS } from "@/types/player";
 import {
   Dialog,
@@ -45,13 +45,16 @@ const PlayerFormDialog = ({
     player?.stats ?? { ...defaultStats }
   );
 
-  const handleOpen = (isOpen: boolean) => {
-    if (isOpen) {
+  // Reset/sync form whenever the dialog opens or the target player changes
+  useEffect(() => {
+    if (open) {
       setName(player?.name ?? "");
       setStats(player?.stats ?? { ...defaultStats });
-    } else {
-      onClose();
     }
+  }, [open, player]);
+
+  const handleOpen = (isOpen: boolean) => {
+    if (!isOpen) onClose();
   };
 
   const handleSave = () => {
