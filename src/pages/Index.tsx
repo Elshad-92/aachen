@@ -177,7 +177,11 @@ const Index = () => {
               player={player}
               selected={selectedIds.has(player.id)}
               selectionMode={selectionMode}
-              onSelect={() => toggleSelect(player.id)}
+              onSelect={() =>
+                selectionMode
+                  ? toggleSelect(player.id)
+                  : setDetailPlayer(player)
+              }
               onEdit={() => {
                 setEditingPlayer(player);
                 setFormOpen(true);
@@ -252,6 +256,13 @@ const Index = () => {
         }}
         onSave={handleSave}
         player={editingPlayer}
+      />
+
+      {/* Detail Dialog */}
+      <PlayerDetailDialog
+        open={detailPlayer !== null}
+        player={detailPlayer}
+        onClose={() => setDetailPlayer(null)}
       />
     </div>
   );

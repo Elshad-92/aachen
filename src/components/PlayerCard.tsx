@@ -33,7 +33,7 @@ const PlayerCard = ({
     <motion.div
       layout
       whileTap={{ scale: 0.97 }}
-      onClick={selectionMode ? onSelect : undefined}
+      onClick={onSelect}
       className={`flex items-center gap-3 rounded-lg border bg-card p-3 transition-colors cursor-pointer ${
         selected
           ? "border-primary ring-2 ring-primary/30"
