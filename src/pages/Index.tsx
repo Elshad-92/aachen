@@ -4,6 +4,7 @@ import { loadPlayers, addPlayer, updatePlayer, deletePlayer } from "@/lib/storag
 import { generateBalancedTeams } from "@/lib/team-generator";
 import PlayerCard from "@/components/PlayerCard";
 import PlayerFormDialog from "@/components/PlayerFormDialog";
+import PlayerDetailDialog from "@/components/PlayerDetailDialog";
 import MatchView from "@/components/MatchView";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -20,6 +21,7 @@ const Index = () => {
   const [selectedIds, setSelectedIds] = useState<Set<string>>(new Set());
   const [formOpen, setFormOpen] = useState(false);
   const [editingPlayer, setEditingPlayer] = useState<Player | null>(null);
+  const [detailPlayer, setDetailPlayer] = useState<Player | null>(null);
   const [matchTeams, setMatchTeams] = useState<[Player[], Player[]] | null>(null);
   const [shuffling, setShuffling] = useState(false);
 
@@ -175,7 +177,11 @@ const Index = () => {
               player={player}
               selected={selectedIds.has(player.id)}
               selectionMode={selectionMode}
-              onSelect={() => toggleSelect(player.id)}
+              onSelect={() =>
+                selectionMode
+                  ? toggleSelect(player.id)
+                  : setDetailPlayer(player)
+              }
               onEdit={() => {
                 setEditingPlayer(player);
                 setFormOpen(true);
@@ -250,6 +256,13 @@ const Index = () => {
         }}
         onSave={handleSave}
         player={editingPlayer}
+      />
+
+      {/* Detail Dialog */}
+      <PlayerDetailDialog
+        open={detailPlayer !== null}
+        player={detailPlayer}
+        onClose={() => setDetailPlayer(null)}
       />
     </div>
   );
