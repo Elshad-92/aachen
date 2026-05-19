@@ -26,25 +26,47 @@ const TeamColumn = ({
     (avg.speed + avg.shoot + avg.stamina + avg.dribbling + avg.pass) / 5
   );
 
+  const isA = variant === "a";
+  const accent = isA ? "hsl(357,82%,51%)" : "hsl(0,72%,51%)";
+  const accentSoft = isA ? "hsl(357,82%,51%)" : "hsl(48,100%,50%)";
+  const flagName = isA ? "Aserbaidschan" : "Deutschland";
+
   return (
     <div className="flex-1 space-y-3">
-      {/* Header */}
-      <div
-        className={`rounded-lg p-3 text-center ${
-          variant === "a"
-            ? "bg-gradient-to-r from-[hsl(214,91%,39%)] via-[hsl(357,82%,51%)] to-[hsl(151,67%,45%)] text-white"
-            : "bg-gradient-to-r from-[hsl(0,0%,0%)] via-[hsl(0,72%,51%)] to-[hsl(48,100%,50%)] text-white"
-        }`}
-      >
-        <p className="font-display text-sm font-semibold uppercase tracking-wider">
-          {variant === "a" ? "Aserbaidschan" : "Deutschland"}
-        </p>
-        <p className="font-display text-3xl font-bold">{teamOverall}</p>
-        <p className="text-xs opacity-80">AVG OVR</p>
+      {/* Flag Header */}
+      <div className="relative overflow-hidden rounded-xl shadow-lg ring-1 ring-black/5">
+        {/* Flag stripes background */}
+        {isA ? (
+          <div className="absolute inset-0 flex flex-col">
+            <div className="flex-1 bg-[hsl(195,85%,40%)]" />
+            <div className="flex-1 bg-[hsl(357,82%,51%)] relative flex items-center justify-end pr-3">
+              <span className="text-white/90 text-lg leading-none">☾✦</span>
+            </div>
+            <div className="flex-1 bg-[hsl(151,67%,40%)]" />
+          </div>
+        ) : (
+          <div className="absolute inset-0 flex flex-col">
+            <div className="flex-1 bg-black" />
+            <div className="flex-1 bg-[hsl(0,72%,45%)]" />
+            <div className="flex-1 bg-[hsl(48,100%,50%)]" />
+          </div>
+        )}
+        {/* Overlay content */}
+        <div className="relative bg-black/35 backdrop-blur-[1px] p-3 text-center text-white">
+          <p className="font-display text-xs font-semibold uppercase tracking-[0.2em] drop-shadow">
+            {flagName}
+          </p>
+          <p className="font-display text-4xl font-bold leading-none mt-1 drop-shadow-lg">
+            {teamOverall}
+          </p>
+          <p className="text-[10px] uppercase tracking-widest opacity-90 mt-1">
+            AVG OVR
+          </p>
+        </div>
       </div>
 
       {/* Avg Stats */}
-      <div className="rounded-lg border bg-card p-3 space-y-2">
+      <div className="rounded-xl border bg-card p-3 space-y-2 shadow-sm">
         {statKeys.map((key) => (
           <div key={key} className="flex items-center gap-2">
             <span className="text-[11px] text-muted-foreground w-7 font-medium">
@@ -55,11 +77,10 @@ const TeamColumn = ({
                 initial={{ width: 0 }}
                 animate={{ width: `${avg[key]}%` }}
                 transition={{ duration: 0.6, delay: 0.3 }}
-                className={`h-full rounded-full ${
-                  variant === "a" 
-                    ? "bg-[hsl(214,91%,39%)]" 
-                    : "bg-[hsl(0,0%,0%)]"
-                }`}
+                className="h-full rounded-full"
+                style={{
+                  background: `linear-gradient(90deg, ${accent}, ${accentSoft})`,
+                }}
               />
             </div>
             <span className="font-display text-sm font-bold w-7 text-right">
@@ -74,17 +95,18 @@ const TeamColumn = ({
         {team.map((player, i) => (
           <motion.div
             key={player.id}
-            initial={{ opacity: 0, x: variant === "a" ? -20 : 20 }}
+            initial={{ opacity: 0, x: isA ? -20 : 20 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ delay: 0.5 + i * 0.08 }}
-            className="flex items-center gap-2 rounded-md border bg-card px-2.5 py-2"
+            className="relative flex items-center gap-2 rounded-lg border bg-card px-2.5 py-2 shadow-sm overflow-hidden"
           >
+            <span
+              className="absolute left-0 top-0 bottom-0 w-1"
+              style={{ background: accent }}
+            />
             <div
-              className={`flex h-7 w-7 items-center justify-center rounded-full text-[10px] font-display font-semibold ${
-                variant === "a"
-                  ? "bg-[hsl(214,91%,39%)]/10 text-[hsl(214,91%,39%)]"
-                  : "bg-[hsl(0,0%,0%)]/10 text-[hsl(0,0%,0%)]"
-              }`}
+              className="flex h-7 w-7 items-center justify-center rounded-full text-[10px] font-display font-semibold text-white ml-1"
+              style={{ background: accent }}
             >
               {player.name.split(" ").map((w) => w[0]).join("").toUpperCase().slice(0, 2)}
             </div>
