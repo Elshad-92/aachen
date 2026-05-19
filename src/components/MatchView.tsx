@@ -39,8 +39,16 @@ const TeamColumn = ({
         {isA ? (
           <div className="absolute inset-0 flex flex-col">
             <div className="flex-1 bg-[hsl(195,85%,40%)]" />
-            <div className="flex-1 bg-[hsl(357,82%,51%)] relative flex items-center justify-end pr-3">
-              <span className="text-white/90 text-lg leading-none">☾✦</span>
+            <div className="flex-1 bg-[hsl(357,82%,51%)] relative flex items-center justify-center gap-1.5">
+              {/* Crescent: white circle with red circle offset to carve crescent */}
+              <div className="relative w-5 h-5">
+                <div className="absolute inset-0 rounded-full bg-white" />
+                <div className="absolute inset-0 rounded-full bg-[hsl(357,82%,51%)] translate-x-[30%]" />
+              </div>
+              {/* 8-pointed star */}
+              <svg viewBox="0 0 100 100" className="w-3.5 h-3.5 fill-white">
+                <polygon points="50,5 59,38 92,28 68,52 92,72 59,62 50,95 41,62 8,72 32,52 8,28 41,38" />
+              </svg>
             </div>
             <div className="flex-1 bg-[hsl(151,67%,40%)]" />
           </div>
