@@ -27,8 +27,8 @@ const TeamColumn = ({
   );
 
   const isA = variant === "a";
-  const accent = isA ? "hsl(357,82%,51%)" : "hsl(0,72%,51%)";
-  const accentSoft = isA ? "hsl(357,82%,51%)" : "hsl(48,100%,50%)";
+  const accent = isA ? "hsl(195,85%,40%)" : "hsl(0,72%,45%)";
+  const accentSoft = isA ? "hsl(151,67%,40%)" : "hsl(48,100%,50%)";
   const flagName = isA ? "Aserbaidschan" : "Deutschland";
 
   return (
