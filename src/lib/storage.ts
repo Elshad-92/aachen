@@ -5,7 +5,7 @@ export const loadPlayers = async (): Promise<Player[]> => {
   const { data, error } = await supabase
     .from("players")
     .select("*")
-    .order("created_at", { ascending: true });
+    .order("name", { ascending: true });
 
   if (error) {
     console.error("Error loading players:", error);
