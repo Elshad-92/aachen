@@ -38,19 +38,22 @@ const Index = () => {
     return players.filter((p) => p.name.toLowerCase().includes(q));
   }, [players, search]);
 
+  const sortPlayers = (list: Player[]) =>
+    [...list].sort((a, b) => a.name.localeCompare(b.name));
+
   const handleSave = async (data: Omit<Player, "id"> & { id?: string }) => {
     if (data.id) {
       const updated: Player = { id: data.id, name: data.name, stats: data.stats };
       const success = await updatePlayer(updated);
       if (success) {
         setPlayers((prev) =>
-          prev.map((p) => (p.id === data.id ? updated : p))
+          sortPlayers(prev.map((p) => (p.id === data.id ? updated : p)))
         );
       }
     } else {
       const newPlayer = await addPlayer({ name: data.name, stats: data.stats });
       if (newPlayer) {
-        setPlayers((prev) => [...prev, newPlayer]);
+        setPlayers((prev) => sortPlayers([...prev, newPlayer]));
       }
     }
   };
