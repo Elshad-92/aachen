@@ -134,8 +134,21 @@ const TeamColumn = ({
 };
 
 const MatchView = ({ teamA, teamB, onBack }: MatchViewProps) => {
+  const [winner, setWinner] = useState<"a" | "b" | null>(null);
+
+  if (winner) {
+    return (
+      <WinnerCelebration
+        winner={winner === "a" ? teamA : teamB}
+        loser={winner === "a" ? teamB : teamA}
+        variant={winner}
+        onBack={() => setWinner(null)}
+      />
+    );
+  }
+
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen bg-background pb-32">
       <div className="sticky top-0 z-10 bg-background/80 backdrop-blur-sm border-b px-4 py-3">
         <div className="flex items-center gap-3 max-w-lg mx-auto">
           <Button variant="ghost" size="icon" onClick={onBack}>
@@ -163,6 +176,31 @@ const MatchView = ({ teamA, teamB, onBack }: MatchViewProps) => {
         <div className="flex gap-3">
           <TeamColumn team={teamA} label="Aserbaidschan" variant="a" />
           <TeamColumn team={teamB} label="Deutschland" variant="b" />
+        </div>
+      </div>
+
+      {/* Winner selection bar */}
+      <div className="fixed bottom-0 left-0 right-0 border-t bg-card/95 backdrop-blur-sm p-4 z-20">
+        <div className="max-w-lg mx-auto space-y-2">
+          <p className="text-center text-xs font-semibold uppercase tracking-widest text-muted-foreground flex items-center justify-center gap-1.5">
+            <Trophy className="h-3.5 w-3.5" /> Wer hat gewonnen?
+          </p>
+          <div className="flex gap-2">
+            <Button
+              onClick={() => setWinner("a")}
+              className="flex-1 h-12 font-display font-bold uppercase tracking-wider text-white hover:opacity-90"
+              style={{ background: "hsl(195,85%,40%)" }}
+            >
+              🇦🇿 Aserbaidschan
+            </Button>
+            <Button
+              onClick={() => setWinner("b")}
+              className="flex-1 h-12 font-display font-bold uppercase tracking-wider text-white hover:opacity-90"
+              style={{ background: "hsl(0,72%,45%)" }}
+            >
+              🇩🇪 Deutschland
+            </Button>
+          </div>
         </div>
       </div>
     </div>
