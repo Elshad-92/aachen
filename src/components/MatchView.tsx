@@ -1,8 +1,10 @@
 import { Player, getOverall, STAT_LABELS, StatKey, PlayerStats } from "@/types/player";
 import { getTeamAvgStats } from "@/lib/team-generator";
 import { motion, AnimatePresence } from "framer-motion";
-import { ArrowLeft } from "lucide-react";
+import { ArrowLeft, Trophy } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { useState } from "react";
+import WinnerCelebration from "./WinnerCelebration";
 
 interface MatchViewProps {
   teamA: Player[];
