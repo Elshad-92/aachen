@@ -7,10 +7,8 @@ import PlayerCard from "@/components/PlayerCard";
 import PlayerFormDialog from "@/components/PlayerFormDialog";
 import PlayerDetailDialog from "@/components/PlayerDetailDialog";
 import MatchView from "@/components/MatchView";
-import AttendancePage from "./AttendancePage";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { motion, AnimatePresence } from "framer-motion";
 import { Plus, Search, Shuffle, Users, X, LogOut } from "lucide-react";
 
@@ -18,7 +16,6 @@ const REQUIRED_PLAYERS = 12;
 
 const Index = () => {
   const { isAdmin, signOut, user } = useAuth();
-  const [activeTab, setActiveTab] = useState("spieler");
   const [players, setPlayers] = useState<Player[]>([]);
   const [loading, setLoading] = useState(true);
   const [search, setSearch] = useState("");
@@ -116,46 +113,72 @@ const Index = () => {
       {/* Header */}
       <div className="sticky top-0 z-10 bg-background/80 backdrop-blur-sm border-b">
         <div className="max-w-lg mx-auto px-4 py-3">
-          <div className="flex items-center justify-between mb-3">
+          <div className="flex items-center justify-between">
             <div>
               <h1 className="font-display text-2xl font-bold uppercase tracking-wide">
                 ⚚ Aachen Ushaqlari
               </h1>
               <p className="text-xs text-muted-foreground">
-                {activeTab === "spieler" 
-                  ? `${players.length} Spieler im Kader ${isAdmin && "(Admin)"}`
-                  : "Wer spielt mit?"}
+                {players.length} Spieler im Kader {isAdmin && "(Admin)"}
               </p>
             </div>
-            <Button
-              variant="ghost"
-              size="sm"
-              onClick={signOut}
-            >
-              <LogOut className="h-4 w-4" />
-            </Button>
+            <div className="flex gap-2">
+              {selectionMode ? (
+                <Button
+                  variant="outline"
+                  size="sm"
+                  onClick={() => {
+                    setSelectionMode(false);
+                    setSelectedIds(new Set());
+                  }}
+                >
+                  <X className="h-4 w-4 mr-1" />
+                  Abbrechen
+                </Button>
+              ) : (
+                <>
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    onClick={() => setSelectionMode(true)}
+                    disabled={players.length < REQUIRED_PLAYERS}
+                  >
+                    <Users className="h-4 w-4 mr-1" />
+                    Aufstellen
+                  </Button>
+                  {isAdmin && (
+                    <Button
+                      size="sm"
+                      onClick={() => {
+                        setEditingPlayer(null);
+                        setFormOpen(true);
+                      }}
+                    >
+                      <Plus className="h-4 w-4" />
+                    </Button>
+                  )}
+                  <Button
+                    variant="ghost"
+                    size="sm"
+                    onClick={signOut}
+                  >
+                    <LogOut className="h-4 w-4" />
+                  </Button>
+                </>
+              )}
+            </div>
           </div>
 
-          {/* Tabs */}
-          <Tabs value={activeTab} onValueChange={setActiveTab}>
-            <TabsList className="grid w-full grid-cols-2">
-              <TabsTrigger value="spieler">Spieler</TabsTrigger>
-              <TabsTrigger value="anwesenheit">Anwesenheit</TabsTrigger>
-            </TabsList>
-          </Tabs>
-
-          {/* Search - nur für Spieler Tab */}
-          {activeTab === "spieler" && (
-            <div className="relative mt-3">
-              <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
-              <Input
-                placeholder="Spieler suchen..."
-                value={search}
-                onChange={(e) => setSearch(e.target.value)}
-                className="pl-9"
-              />
-            </div>
-          )}
+          {/* Search */}
+          <div className="relative mt-3">
+            <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+            <Input
+              placeholder="Spieler suchen..."
+              value={search}
+              onChange={(e) => setSearch(e.target.value)}
+              className="pl-9"
+            />
+          </div>
         </div>
       </div>
 
@@ -304,14 +327,7 @@ const Index = () => {
         </>
       )}
 
-      {/* Anwesenheit Tab */}
-      {activeTab === "anwesenheit" && (
-        <AttendancePage />
-      )}
-      {/* Anwesenheit Tab */}
-      {activeTab === "anwesenheit" && (
-        <AttendancePage />
-      )}
+      
     </div>
   );
 };
