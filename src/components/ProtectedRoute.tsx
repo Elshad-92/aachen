@@ -1,5 +1,6 @@
 import { Navigate } from "react-router-dom";
 import { useAuth } from "@/contexts/AuthContext";
+import AuthPage from "@/pages/AuthPage";
 
 interface ProtectedRouteProps {
   children: React.ReactNode;
@@ -17,7 +18,7 @@ export const ProtectedRoute = ({
   }
 
   if (!user) {
-    return <Navigate to="/login" replace />;
+    return <AuthPage />;
   }
 
   if (requiredRole && role !== requiredRole) {
