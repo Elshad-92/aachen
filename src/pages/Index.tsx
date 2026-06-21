@@ -2,6 +2,7 @@ import { useState, useMemo, useEffect, useCallback } from "react";
 import { Player } from "@/types/player";
 import { loadPlayers, addPlayer, updatePlayer, deletePlayer } from "@/lib/storage";
 import { generateBalancedTeams } from "@/lib/team-generator";
+import { useAuth } from "@/contexts/AuthContext";
 import PlayerCard from "@/components/PlayerCard";
 import PlayerFormDialog from "@/components/PlayerFormDialog";
 import PlayerDetailDialog from "@/components/PlayerDetailDialog";
@@ -9,11 +10,12 @@ import MatchView from "@/components/MatchView";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { motion, AnimatePresence } from "framer-motion";
-import { Plus, Search, Shuffle, Users, X } from "lucide-react";
+import { Plus, Search, Shuffle, Users, X, LogOut } from "lucide-react";
 
 const REQUIRED_PLAYERS = 12;
 
 const Index = () => {
+  const { isAdmin, signOut, user } = useAuth();
   const [players, setPlayers] = useState<Player[]>([]);
   const [loading, setLoading] = useState(true);
   const [search, setSearch] = useState("");
@@ -117,7 +119,7 @@ const Index = () => {
                 ⚚ Aachen Ushaqlari
               </h1>
               <p className="text-xs text-muted-foreground">
-                {players.length} Spieler im Kader
+                {players.length} Spieler im Kader {isAdmin && "(Admin)"}
               </p>
             </div>
             <div className="flex gap-2">
@@ -144,14 +146,23 @@ const Index = () => {
                     <Users className="h-4 w-4 mr-1" />
                     Aufstellen
                   </Button>
+                  {isAdmin && (
+                    <Button
+                      size="sm"
+                      onClick={() => {
+                        setEditingPlayer(null);
+                        setFormOpen(true);
+                      }}
+                    >
+                      <Plus className="h-4 w-4" />
+                    </Button>
+                  )}
                   <Button
+                    variant="ghost"
                     size="sm"
-                    onClick={() => {
-                      setEditingPlayer(null);
-                      setFormOpen(true);
-                    }}
+                    onClick={signOut}
                   >
-                    <Plus className="h-4 w-4" />
+                    <LogOut className="h-4 w-4" />
                   </Button>
                 </>
               )}
@@ -180,6 +191,7 @@ const Index = () => {
               player={player}
               selected={selectedIds.has(player.id)}
               selectionMode={selectionMode}
+              isAdmin={isAdmin}
               onSelect={() =>
                 selectionMode
                   ? toggleSelect(player.id)

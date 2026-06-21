@@ -6,6 +6,7 @@ interface PlayerCardProps {
   player: Player;
   selected?: boolean;
   selectionMode?: boolean;
+  isAdmin?: boolean;
   onSelect?: () => void;
   onEdit?: () => void;
   onDelete?: () => void;
@@ -17,6 +18,7 @@ const PlayerCard = ({
   player,
   selected,
   selectionMode,
+  isAdmin,
   onSelect,
   onEdit,
   onDelete,
@@ -81,8 +83,8 @@ const PlayerCard = ({
         <span className="text-[10px] text-muted-foreground">OVR</span>
       </div>
 
-      {/* Actions (only in non-selection mode) */}
-      {!selectionMode && (
+      {/* Actions (only in non-selection mode and for admins) */}
+      {!selectionMode && isAdmin && (
         <div className="flex flex-col gap-1 shrink-0">
           <button
             onClick={(e) => {
