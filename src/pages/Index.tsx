@@ -183,7 +183,6 @@ const Index = () => {
       </div>
 
       {/* Spieler Tab */}
-      {activeTab === "spieler" && (
         <>
           {/* Player List */}
           <div className="max-w-lg mx-auto px-4 pt-4 space-y-2">
@@ -325,9 +324,6 @@ const Index = () => {
             onClose={() => setDetailPlayer(null)}
           />
         </>
-      )}
-
-      
     </div>
   );
 };
