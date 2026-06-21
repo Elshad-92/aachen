@@ -17,10 +17,16 @@ interface AuthContextType {
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
-// Hardcoded credentials
+// Load credentials from environment variables
 const CREDENTIALS: Record<string, { password: string; role: UserRole }> = {
-  "user": { password: "password user", role: "user" },
-  "admin": { password: "Lotu.Admin.AC", role: "admin" },
+  [import.meta.env.VITE_USER_LOGIN]: { 
+    password: import.meta.env.VITE_USER_PASSWORD, 
+    role: "user" 
+  },
+  [import.meta.env.VITE_ADMIN_LOGIN]: { 
+    password: import.meta.env.VITE_ADMIN_PASSWORD, 
+    role: "admin" 
+  },
 };
 
 export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
@@ -33,7 +39,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
       const credentials = CREDENTIALS[username];
 
       if (!credentials || credentials.password !== password) {
-        throw new Error("Invalid username or password");
+        throw new Error("Sen guya agillisan da he ?");
       }
 
       setUser({
