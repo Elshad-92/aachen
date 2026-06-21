@@ -41,8 +41,9 @@ const AttendancePage = () => {
     fetchAttendance();
 
     // Subscribe to real-time changes
-    const subscription = supabase
-      .channel("attendance-changes")
+    const channel = supabase.channel("attendance-changes");
+    
+    const subscription = channel
       .on(
         "postgres_changes",
         { event: "*", schema: "public", table: "attendance" },
