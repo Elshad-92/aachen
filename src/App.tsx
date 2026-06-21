@@ -19,7 +19,6 @@ const App = () => (
         <Sonner />
         <BrowserRouter basename="/aachen/">
           <Routes>
-            <Route path="/login" element={<AuthPage />} />
             <Route
               path="/"
               element={
