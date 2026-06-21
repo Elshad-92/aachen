@@ -40,7 +40,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
       const credentials = CREDENTIALS[username];
 
       if (!credentials || credentials.password !== password) {
-        throw new Error("Sen guya agillisan da he ?");
+        throw new Error("Sen guya agillisan da he ? 😂");
       }
 
       setUser({
