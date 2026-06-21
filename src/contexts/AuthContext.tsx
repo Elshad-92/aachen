@@ -10,6 +10,7 @@ interface AuthUser {
 interface AuthContextType {
   user: AuthUser | null;
   loading: boolean;
+  role: UserRole | null;
   signIn: (username: string, password: string) => Promise<void>;
   signOut: () => Promise<void>;
   isAdmin: boolean;
@@ -58,6 +59,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   const value = {
     user,
     loading,
+    role: user?.role ?? null,
     signIn,
     signOut,
     isAdmin: user?.role === "admin",
