@@ -4,7 +4,7 @@ import { useAuth } from "@/contexts/AuthContext";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { AlertCircle, Info } from "lucide-react";
+import { AlertCircle } from "lucide-react";
 import { Alert, AlertDescription } from "@/components/ui/alert";
 
 const AuthPage = () => {
@@ -39,15 +39,6 @@ const AuthPage = () => {
           </CardTitle>
         </CardHeader>
         <CardContent className="space-y-4">
-          <Alert className="border-blue-200 bg-blue-50">
-            <Info className="h-4 w-4 text-blue-600" />
-            <AlertDescription className="text-blue-800 text-sm">
-              <p className="font-semibold mb-2">Test Accounts:</p>
-              <p>Login: <code className="bg-white px-1 rounded">user</code> / Pass: <code className="bg-white px-1 rounded">password user</code></p>
-              <p>Login: <code className="bg-white px-1 rounded">admin</code> / Pass: <code className="bg-white px-1 rounded">Lotu.Admin.AC</code></p>
-            </AlertDescription>
-          </Alert>
-
           {error && (
             <Alert variant="destructive">
               <AlertCircle className="h-4 w-4" />
