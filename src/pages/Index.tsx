@@ -12,7 +12,7 @@ import { Input } from "@/components/ui/input";
 import { motion, AnimatePresence } from "framer-motion";
 import { Plus, Search, Shuffle, Users, X, LogOut } from "lucide-react";
 
-const REQUIRED_PLAYERS = 12;
+const MIN_PLAYERS_FOR_TEAMS = 2;
 
 const Index = () => {
   const { isAdmin, signOut, user } = useAuth();
@@ -77,7 +77,7 @@ const Index = () => {
       const next = new Set(prev);
       if (next.has(id)) {
         next.delete(id);
-      } else if (next.size < REQUIRED_PLAYERS) {
+      } else {
         next.add(id);
       }
       return next;
@@ -141,7 +141,7 @@ const Index = () => {
                     variant="outline"
                     size="sm"
                     onClick={() => setSelectionMode(true)}
-                    disabled={players.length < REQUIRED_PLAYERS}
+                    disabled={players.length < MIN_PLAYERS_FOR_TEAMS}
                   >
                     <Users className="h-4 w-4 mr-1" />
                     Aufstellen
@@ -193,7 +193,7 @@ const Index = () => {
                   variant="outline"
                   size="sm"
                   onClick={() => setSelectionMode(true)}
-                  disabled={players.length < REQUIRED_PLAYERS}
+                  disabled={players.length < MIN_PLAYERS_FOR_TEAMS}
                   className="flex-1"
                 >
                   <Users className="h-4 w-4 mr-1" />
@@ -278,7 +278,7 @@ const Index = () => {
                 <div className="max-w-lg mx-auto flex items-center gap-3">
                   <div className="flex-1">
                     <p className="font-display text-lg font-bold">
-                      {selectedIds.size}/{REQUIRED_PLAYERS}
+                      {selectedIds.size} Spieler
                     </p>
                     <p className="text-xs text-muted-foreground">
                       Spieler ausgewählt
@@ -286,7 +286,7 @@ const Index = () => {
                   </div>
                   <Button
                     onClick={handleGenerate}
-                    disabled={selectedIds.size !== REQUIRED_PLAYERS || shuffling}
+                    disabled={selectedIds.size < MIN_PLAYERS_FOR_TEAMS || shuffling}
                     className="gap-2"
                   >
                     {shuffling ? (
